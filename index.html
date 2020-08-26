@@ -42,7 +42,7 @@
                                 <div id="allClear" class="button">C</div>
                             </div>
                             <div>
-                                <button id="submitMatch" type="submit" class="submit-btn">Submit</button>
+                                <button id="submitBtnMatching" type="submit" class="submit-btn">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -69,14 +69,19 @@
             inputRandom.value = getFourDigitsRandom;
         });
         
-        document.getElementById('submitMatch').addEventListener('click', function(){
+        document.getElementById('submitBtnMatching').addEventListener('click', function(){
             const getRandomNumber = document.getElementById('showRandom').value;
             const getShowRandomNumber = document.getElementById('showNumber').value;
-            if(getRandomNumber === getShowRandomNumber){
-                const notifySectionShow = document.getElementById('notifyMatch').style.display='block';
+            if(getRandomNumber == getShowRandomNumber){
+                if( getRandomNumber == ''){
+                    document.getElementById('notifyMatch').style.display='none';
+                }
+                else{
+                    document.getElementById('notifyMatch').style.display='block';
+                }
             }
             else{
-                const notifySectionShow = document.getElementById('notifyWrong').style.display='block';
+                document.getElementById('notifyWrong').style.display='block';
             }    
         });
         document.getElementById('allClear').addEventListener('click', function(){
