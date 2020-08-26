@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="showRandom" class="form-control" type="text">
+                    <button id="generateBtn"class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width getNumber">
+                    <input id="showNumber" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="getNumber(this.innerText)">7</div>
+                              <div class="button" onclick="getNumber(this.innerText)">8</div>
+                              <div class="button" onclick="getNumber(this.innerText)">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="getNumber(this.innerText)">4</div>
+                              <div class="button" onclick="getNumber(this.innerText)">5</div>
+                              <div class="button" onclick="getNumber(this.innerText)">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="getNumber(this.innerText)">1</div>
+                              <div class="button" onclick="getNumber(this.innerText)">2</div>
+                              <div class="button" onclick="getNumber(this.innerText)">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div id="delete" class="button"><</div>
+                                <div class="button" onclick="getNumber(this.innerText)">0</div>
+                                <div id="allClear" class="button">C</div>
+                            </div>
+                            <div>
+                                <button id="submitMatch" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="notifyMatch" class="notify-section">
+            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+        <div id="notifyWrong" class="notify-section">
+            <p class="notify">❌ Pin Didn't Match, Please try again</p>
+        </div>
+        
+    </div>
+
+    <script>
+        //Hide 
+        const notifySectionShow = document.getElementById('notifyMatch').style.display='none';
+        const notifySectionWrong = document.getElementById('notifyWrong').style.display='none';
+        document.getElementById('generateBtn').addEventListener('click', function(){
+            const inputRandom = document.getElementById('showRandom');
+            const getRandom = 1000 + Math.random() * 9000;
+            const getFourDigitsRandom = Math.floor(getRandom);
+            inputRandom.value = getFourDigitsRandom;
+        });
+        
+        document.getElementById('submitMatch').addEventListener('click', function(){
+            const getRandomNumber = document.getElementById('showRandom').value;
+            const getShowRandomNumber = document.getElementById('showNumber').value;
+            if(getRandomNumber === getShowRandomNumber){
+                const notifySectionShow = document.getElementById('notifyMatch').style.display='block';
+            }
+            else{
+                const notifySectionShow = document.getElementById('notifyWrong').style.display='block';
+            }    
+        });
+        document.getElementById('allClear').addEventListener('click', function(){
+            document.getElementById('showNumber').value = '';
+        });
+        document.getElementById('delete').addEventListener('click', function(){
+            document.getElementById('showNumber').value = document.getElementById('showNumber').value.toString().slice(0, -1);
+        });
+
+        function getNumber(inputText){
+            document.getElementById('showNumber').value = document.getElementById('showNumber').value + inputText;
+        }
+    </script>
+</body>
+</html>
